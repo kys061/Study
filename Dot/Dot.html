@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title> Basic Bindings</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <style>
+      body {
+        padding: 10px;
+      }
+    </style>
+
+    <script>
+
+    </script>
+
+  </head>
+
+
+<body>
+
+<div ng-app="app">
+  <input type="text" ng-model="data.message">
+  <h1>{{data.message}}</h1>
+  <div ng-controller="FirstCtrl">
+      <input type="text" ng-model="data.message">
+      <h1>{{data.message}}</h1>
+  </div>
+  <div ng-controller="SecondCtrl">
+      <input type="text" ng-model="data.message">
+      <h1>{{data.message}}</h1>
+  </div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<script src="app.js"></script>
+
+</body>
+
+</html>
