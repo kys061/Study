@@ -1,1 +1,11 @@
-<div class="btn btn-default" ng-click="AppCtrl.sayHi()"> Click, Me!</div>
+
+
+<!-- model.title은 이 뷰 상에서 title이란 프로퍼티를 가지는 mnodel객체를 선언한 것.  -->
+title: <input type="text" ng-model="model.title">
+<br>
+<br>
+contents: <input type="text" ng-model="model.content">
+
+<zippy title="{{model.title}}">
+  내용 : {{model.content}}
+</zippy>
