@@ -18,8 +18,8 @@ angular.module("app", ["ui.router"])
           return {
             restrict: "E",
             transclude: true,
-            scope: {
-              title:"@"
+            scope: {  // <zippy title="{{model.title}}"></zippy>
+              title:"@" // 뷰와 디렉티브 사이의 변수를 연결 시켜주기 위한 스코프?
             },
             templateUrl: 'templates/zippy.html',
 

@@ -9,6 +9,7 @@ angular.module("phoneApp", ["ui.router"])
             })
         })
 
+
         .controller('AppCtrl', ['$scope', function ($scope) {
             this.sayHi = function(){
               alert("hi")
