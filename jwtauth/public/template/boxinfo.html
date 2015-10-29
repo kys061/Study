@@ -1,0 +1,141 @@
+<!-- NAV -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+
+      <a class="navbar-brand" href="#/">Box Info</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+      </ul>
+      <!-- LEFT -->
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" ng-model="model.search">
+        </div>
+        <button type="submit" class="btn btn-default">검색</button>
+      </form>
+      <!-- LOGIN FORM -->
+      <!-- <form class="navbar-form navbar-left" ng-show="vm.isLogining" ng-submit="vm.login(vm.username, vm.password);">
+        <div class="form-group">
+          <label class="sr-only" for="Userid">User Id</label>
+          <input type="text" class="form-control" id="Userid" placeholder="User Id" ng-model="vm.username">
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="exampleInputPassword3">Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password" ng-model="vm.password">
+        </div>
+        <button type="submit" id="submit" class="btn btn-success">Sign in</button> -->
+        <!-- <button type="submit" id="submit" class="btn btn-success" ng-click="vm.startLogining(); vm.setAdmin();">Sign in</button> -->
+      </form>
+      <p class="navbar-text">Signed in as <mark>{{vm.user.username}}</mark></p>
+      <!-- RIGHT FORM -->
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+
+        </div>
+        <button type="submit" class="btn btn-default" ng-click="vm.getBoxinfo(); vm.startGetting();">Get Boxinfo</button>
+        <button type="submit" class="btn btn-success" ng-click="vm.startCreating();">Box Create</button>
+        <button type="submit" class="btn btn-warning" ng-click="vm.cancelCreating();">Box Cancel</button>
+        <button type="submit" class="btn btn-success" ng-click="vm.startLogining(); " ng-hide="vm.isLoggedIn"><a href="#/login">로그인</a></button>
+        <button type="submit" class="btn btn-danger" ng-click="vm.logout();" ng-show="vm.isLoggedIn"><a href="#/login">로그아웃</a></button>
+      </form>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<hr>
+<!-- NAV END -->
+<!-- <h1>Get Random User</h1> -->
+
+<!-- <div>
+<form class="form-horizontal" ng-submit="vm.login(vm.username, vm.password)">
+<label>Username: <input type="text" ng-model="vm.username"/></label><br/>
+<label>Password: <input type="password" ng-model="vm.password"/></label><br/>
+<button type="submit">Login</button>
+</form>
+</div> -->
+
+<!-- <h1>Welcom !!! {{vm.user.username}}  !!!</h1> -->
+<!-- <button ng-click="vm.logout();">Logout</button>
+<hr> -->
+<!-- <div>
+<button ng-click="vm.getRandomUser()">Get User</button>
+<pre ng-bind="vm.randomUser | json"></pre>
+{{vm.randomUser | json}}
+</div> -->
+
+<!-- <div>
+<button ng-click="vm.getBoxinfo(); vm.startGetting();">Get Boxinfo</button>
+<pre ng-bind="vm.boxinfo | json"></pre>
+{{vm.randomUser | json}}
+
+</div> -->
+
+<!-- CREATE FORM -->
+<form class="form-horizontal" ng-show="vm.isCreating" ng-submit="vm.createBoxInfo(newBoxinfo);" novalidate>
+  <div class="form-group">
+    <label for="boxname" class="col-sm-2 control-label">Box Name</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="boxname" placeholder="Box Name" ng-model="vm.newBoxinfo.boxname">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="boxtype" class="col-sm-2 control-label">Box Type</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="boxtype" placeholder="Box Type" ng-model="vm.newBoxinfo.boxtype">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="boxip" class="col-sm-2 control-label">Box IP</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="boxtype" placeholder="Box IP" ng-model="vm.newBoxinfo.boxip">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="boxgateway" class="col-sm-2 control-label">Box Gateway</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="boxgateway" placeholder="Box Gateway" ng-model="vm.newBoxinfo.boxgateway">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="license" class="col-sm-2 control-label">License</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="license" placeholder="License" ng-model="vm.newBoxinfo.license">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-8 col-sm-11">
+      <button type="submit" class="btn btn-default" ng-click="vm.cancelCreating();">Create</button>
+      <button type="button" class="btn btn-default" ng-click="vm.cancelCreating();">
+        Cancel
+      </button>
+    </div>
+  </div>
+  <hr>
+</form>
+<!-- SHOW BOXINFO -->
+<div ng-show="vm.isLoggedIn">
+  <table class="table table-bordered " >
+    <tr class="info">
+      <th>BOX NAME</th>
+      <th>LICENSE</th>
+      <th>BOX TYPE</th>
+      <th>BOX IP</th>
+      <th>BOX GATEWAY</th>
+    </tr>
+    <tr ng-repeat="box in vm.boxinfo | filter:model.search" >
+      <td><span ng-class="{'searchactive':vm.isSelectedBoxinfo(box, model.search)}">{{box.boxname}}</span></td>
+      <td><span ng-class="{'searchactive':vm.isSelectedBoxinfo(box, model.search)}">{{box.license}}</span></td>
+      <td><span ng-class="{'searchactive':vm.isSelectedBoxinfo(box, model.search)}">{{box.boxtype}}</span></td>
+      <td>
+        http : <a ng-href="http://{{box.boxip}}:4242" style="text-decoration: none;" target="_blank"><span ng-class="{'searchactive':vm.isSelectedBoxinfo(box, model.search)}">{{box.boxip}}</span></a> |
+        https : <a ng-href="https://{{box.boxip}}:4242" style="text-decoration: none;" target="_blank"><span ng-class="{'searchactive':vm.isSelectedBoxinfo(box, model.search)}">{{box.boxip}}</span></a>
+      </td>
+      <td><span ng-class="{'searchactive':vm.isSelectedBoxinfo(box, model.search)}">{{box.boxgateway}}</span></td>
+    </tr>
+  </table>
+</div>

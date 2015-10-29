@@ -1,0 +1,26 @@
+<!-- <div ng-include="'template/navbar.html'"></div> -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#/">로그인</a>
+    </div>
+    <form class="navbar-form navbar-left" ng-submit="vm.login(vm.username, vm.password);">
+      <div class="form-group">
+        <label class="sr-only" for="Userid">User Id</label>
+        <input type="text" class="form-control" id="Userid" placeholder="User Id" ng-model="vm.username">
+      </div>
+      <div class="form-group">
+        <label class="sr-only" for="exampleInputPassword3">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password" ng-model="vm.password">
+      </div>
+      <button type="submit" id="submit" class="btn btn-success">Sign in</button>
+      <!-- <button type="submit" id="submit" class="btn btn-success" ng-click="vm.startLogining(); vm.setAdmin();">Sign in</button> -->
+
+    </form>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<!-- <button type="submit" class="btn btn-success" ng-click="vm.startLogining(); " ng-hide="vm.isLoggedIn">로그인</button> -->
+<!-- <button type="submit" class="btn btn-success" ng-click="vm.startLogining(); " ng-show="vm.isLoginbtn" ng-if="vm.currentUser | user:'isntAdmin'">로그인</button> -->
