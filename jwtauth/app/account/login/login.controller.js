@@ -34,7 +34,7 @@ angular.module('app')
     }
 
     function handleError(response){
-      alert('Error' + response.data)
+      alert('Error : ' + response.data)
       console.log(response);
     }
 
@@ -66,6 +66,7 @@ angular.module('app')
 
     function logout(){
       AuthTokenFactory.setToken();
+      AuthUserFactory.setUser();
     }
 
     function getUser() {

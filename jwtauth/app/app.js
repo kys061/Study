@@ -25,7 +25,8 @@
   })
 
   .constant('API_URL', 'http://localhost:10000')
-  .constant('API_URL_BOXINFO', 'http://115.136.205.93:3000')
+  //.constant('API_URL_BOXINFO', 'http://115.136.205.93:3000')
+  .constant('API_URL_BOXINFO', 'http://localhost:3000')
 
   .controller('MainCtrl', function MainCtrl(RandomUserFactory, UserFactory, BoxInfoFactory, $route, $state, $location) {
     'use strict';
