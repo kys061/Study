@@ -1,0 +1,49 @@
+<!-- NAV -->
+<nav class="navbar navbar-default" ng-controller="NavbarCtrl as nc">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better moe display -->
+    <div class="navbar-header">
+
+      <a class="navbar-brand" href="#/">Box Info</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+      </ul>
+      <!-- LEFT -->
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" ng-model="model.search">
+        </div>
+        <button type="submit" class="btn btn-default">검색</button>
+      </form>
+      <!-- LOGIN FORM -->
+      <!-- <form class="navbar-form navbar-left" ng-show="isLogining" ng-submit="login(username, password);">
+        <div class="form-group">
+          <label class="sr-only" for="Userid">User Id</label>
+          <input type="text" class="form-control" id="Userid" placeholder="User Id" ng-model="username">
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="exampleInputPassword3">Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password" ng-model="password">
+        </div>
+        <button type="submit" id="submit" class="btn btn-success">Sign in</button> -->
+        <!-- <button type="submit" id="submit" class="btn btn-success" ng-click="startLogining(); setAdmin();">Sign in</button> -->
+      </form>
+      <p class="navbar-text">Signed in as <mark>{{user.username}}</mark></p>
+      <!-- RIGHT FORM -->
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+
+        </div>
+        <a href="/login"><button class="btn btn-danger" ng-hide="isLogged();">로그인</button></a>
+        <button type="submit" class="btn btn-default" ng-click="getBoxinfo(); startGetting();">Get Boxinfo</button>
+        <button type="submit" class="btn btn-success" ng-click="startCreating();">Box Create</button>
+        <button type="submit" class="btn btn-warning" ng-click="cancelCreating();">Box Cancel</button>
+        <a href="/login"><button class="btn btn-danger" ng-click="logout();" ng-hide="isLogged();">로그아웃</button></a>
+      </form>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

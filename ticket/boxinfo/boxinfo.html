@@ -1,0 +1,209 @@
+<!-- NAV -->
+<hr>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better moe display -->
+    <div class="navbar-header">
+
+      <a class="navbar-brand" href="/">Ticket</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <!-- LEFT -->
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <!--<input type="radio" class="form-control" ng-model="search.name" value=""> <mark>title</mark>-->
+          <input type="text" class="form-control" placeholder="Search" ng-model="search">
+        </div>
+      </form>
+      <p class="navbar-text">per pages</p>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <!-- <span class="input-group-addon" id="basic-addon"></span> -->
+          <input type="number" min="20" max="100" class="form-control" placeholder="Per Pages" ng-model="pageSize">
+        </div>
+      </form>
+      <!-- LOGIN FORM -->
+    </form>
+    <p class="navbar-text">{{user}}</p>
+    <!-- RIGHT FORM -->
+    <form class="navbar-form navbar-right" role="search">
+      <div class="form-group">
+
+      </div>
+      <a href="/login"><button class="btn btn-danger" ng-hide="bi.isLogged();">로그인</button></a>
+      <button type="submit" class="btn btn-default" ng-click="bi.getTicket();">티켓보기</button>
+      <button type="submit" class="btn btn-success" ng-click="bi.startCreating(); ">티켓작성</button>
+      <!--<button type="submit" class="btn btn-warning" ng-click="bi.cancelCreating();">Box Cancel</button>-->
+      <a href="/login"><button class="btn btn-danger" ng-click="bi.logout();" ng-show="bi.isLogged();">로그아웃</button></a>
+    </form>
+  </div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+</nav>
+<!-- END NAVbar -->
+<hr>
+<!-- <h1>Get Random User</h1> -->
+
+<!-- <div>
+<form class="form-horizontal" ng-submit="bi.login(bi.username, bi.password)">
+<label>Username: <input type="text" ng-model="bi.username"/></label><br/>
+<label>Password: <input type="password" ng-model="bi.password"/></label><br/>
+<button type="submit">Login</button>
+</form>
+</div> -->
+
+<!-- <h1>Welcom !!! {{bi.user.username}}  !!!</h1> -->
+<!-- <button ng-click="bi.logout();">Logout</button>
+<hr> -->
+<!-- <div>
+<button ng-click="bi.getRandomUser()">Get User</button>
+<pre ng-bind="bi.randomUser | json"></pre>
+{{bi.randomUser | json}}
+</div> -->
+
+<!-- <div>
+<button ng-click="bi.getBoxinfo(); bi.startGetting();">Get Boxinfo</button>
+<pre ng-bind="bi.boxinfo | json"></pre>
+{{bi.randomUser | json}}
+
+</div> -->
+
+<!-- CREATE FORM -->
+<form class="form-horizontal" ng-show="bi.isCreating" ng-submit="bi.createTicket(newticket);" novalidate>
+  <div class="form-group">
+    <label for="title" class="col-sm-2 control-label">제  목 : </label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="title" placeholder="제목" ng-model="newticket.title">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="contents" class="col-sm-2 control-label">내  용 : </label>
+    <div class="col-sm-8">
+      <textarea class="form-control" row="5" id="contents" placeholder="내용" ng-model="newticket.board_contents"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="type" class="col-sm-2 control-label">티켓종류 : </label>
+    <div class="col-sm-3">
+      <select name="tickettype" class="form-control c-select" id="type" ng-model="newticket.type">
+        <option selected>티켓 종류를 선택해주세요.</option>
+        <option value="open">open</option>
+        <option value="hold">hold</option>
+        <option value="close">close</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="username" class="col-sm-2 control-label">작성자 : </label>
+    <div class="col-sm-2">
+      <select name="username" class="form-control" id="username" ng-model="newticket.username">
+        <option value="{{user}}">{{user}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-8 col-sm-11">
+      <button type="submit" class="btn btn-default" ng-click="bi.cancelCreating();">완료</button>
+      <button type="button" class="btn btn-default" ng-click="bi.cancelCreating();">취소</button>
+    </div>
+  </div>
+  <hr>
+</form>
+<!-- SHOW TICKET  OPEN -->
+<div ng-show="bi.isLoggedIn">
+  <table class="table table-bordered table-responsive" >
+    <tr class="danger"><th>OPEN: currentPage: {{ currentPage.open }}</th></tr>
+    <tr class="info">
+      <th>삭제</th>
+      <th>티켓넘버</th>
+      <th>제목</th>
+      <th>티켓타입</th>
+      <th>작성자</th>
+      <th>작성시</th>
+    </tr>
+    <tr dir-paginate="ticket in bi.tickets | orderBy:'-_id' | filter:search |filter:{ type: type.open} | itemsPerPage: pageSize" current-page="currentPage.open" pagination-id="openticketPagination">
+      <td><button type="button" class="close" ng-click="bi.deleteboxinfo(box)">&times;</button></td>
+      <!-- <td>{{$index + 1}}.</td> -->
+      <td>{{ticket._id}}</td>
+      <td>{{ticket.title}}</td>
+      <td>{{ticket.type}}</td>
+      <td>{{ticket.username}}</td>
+      <td>{{ticket.date |date : 'yyyy/M/d hh:mm a' : +09 }}</td>
+    </tr>
+  </table>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="text-center">
+        <dir-pagination-controls boundary-links="true" template-url="/bower_components/angularUtils-pagination/dirPagination.tpl.html" pagination-id="openticketPagination"></dir-pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- SHOW TICKET  HOLD -->
+  <div ng-show="bi.isLoggedIn">
+    <table class="table table-bordered table-responsive" >
+      <tr class="danger"><th class="active">HOLD: currentPage: {{ currentPage.hold }}</th></tr>
+      <tr class="info">
+        <th>삭제</th>
+        <th>티켓넘버</th>
+        <th>제목</th>
+        <th>티켓타입</th>
+        <th>작성자</th>
+        <th>작성시</th>
+      </tr>
+
+      <tr dir-paginate="ticket in bi.tickets | orderBy:'-_id'  | filter:search |filter:{ type: type.hold} | itemsPerPage: pageSize" current-page="currentPage.hold" pagination-id="holdticketPagination">
+        <td><button type="button" class="close" ng-click="bi.deleteboxinfo(box)">&times;</button></td>
+        <!-- <td>{{$index + 1}}.</td> -->
+        <td>{{ticket._id}}</td>
+        <td>{{ticket.title}}</td>
+        <td>{{ticket.type}}</td>
+        <td>{{ticket.username}}</td>
+        <td>{{ticket.date |date : 'yyyy/M/d hh:mm a' : +09 }}</td>
+      </tr>
+
+    </table>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="text-center">
+          <dir-pagination-controls boundary-links="true" template-url="/bower_components/angularUtils-pagination/dirPagination.tpl.html" pagination-id="holdticketPagination"></dir-pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- SHOW TICKET  CLOSE -->
+    <div ng-show="bi.isLoggedIn">
+      <table class="table table-bordered table-responsive" >
+        <tr class="danger"><th class="active">CLOSE: currentPage: {{ currentPage.close }}</th></tr>
+        <tr class="info">
+          <th>삭제</th>
+          <th>티켓넘버</th>
+          <th>제목</th>
+          <th>티켓타입</th>
+          <th>작성자</th>
+          <th>작성시</th>
+        </tr>
+
+        <tr dir-paginate="ticket in bi.tickets | orderBy:'-_id'  | filter:search |filter:{ type: type.close} | itemsPerPage: pageSize" current-page="currentPage.close" pagination-id="closeticketPagination">
+          <td><button type="button" class="close" ng-click="bi.deleteboxinfo(box)">&times;</button></td>
+          <!-- <td>{{$index + 1}}.</td> -->
+          <td>{{ticket._id}}</td>
+          <td>{{ticket.title}}</td>
+          <td>{{ticket.type}}</td>
+          <td>{{ticket.username}}</td>
+          <td>{{ticket.date |date : 'yyyy/M/d hh:mm a' : +09 }}</td>
+        </tr>
+
+      </table>
+
+  <div class="row">
+      <div class="col-xs-12">
+          <div class="text-center">
+            <dir-pagination-controls boundary-links="true" template-url="/bower_components/angularUtils-pagination/dirPagination.tpl.html" pagination-id="closeticketPagination"></dir-pagination-controls>
+          </div>
+        </div>
+      </div>
+</div>
